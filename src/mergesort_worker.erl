@@ -1,3 +1,14 @@
+%%% @doc Merge sort
+%%%
+%%% Takes 3 parameters:
+%%% 1. original list
+%%% 2. length of the list
+%%% 3. number Parts
+%%%
+%%% Limitations:
+%%% Length of the list must be a power of Parts.
+%%% In other words, this must be satisfied:
+%%% Parts ^ n = Length, n must be integer >= 1.
 -module(mergesort_worker).
 
 -include_lib("eunit/include/eunit.hrl").

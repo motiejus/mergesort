@@ -40,7 +40,12 @@ distribute(Orig, Length, NumParts) ->
     lists:foldl(
         fun(_, Acc) ->
                 {H, T} = lists:split(NewLength, Acc),
-                spawn(?MODULE, sort, [Self, H, NewLength, NumParts]),
+                case NewLength of
+                    1 ->
+                        Self ! {part, H};
+                    _ ->
+                        spawn(?MODULE, sort, [Self, H, NewLength, NumParts])
+                end,
                 T
         end,
         Orig,

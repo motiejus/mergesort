@@ -7,22 +7,29 @@ random_list(Len) ->
 
 
 smallest_test_() ->
+    S = [1, 2],
+    [
+        ?_assertEqual(S, mergesort_worker:sort([2, 1], 2, 2)),
+        ?_assertEqual(S, mergesort_worker:sort([2, 1], 2, 2))
+    ].
+
+smaller_test_() ->
     L = lists:seq(4, 1, -1),
     S = lists:seq(1, 4),
     [
-        %?_assertEqual(S, mergesort_worker:sort(L, 4, 2))
-        %?_assertEqual(S, mergesort_worker:sort(L, 4, 4))
+        ?_assertEqual(S, mergesort_worker:sort(L, 4, 2)),
+        ?_assertEqual(S, mergesort_worker:sort(L, 4, 4))
     ].
 
 small_test_() ->
     L = lists:seq(16, 1, -1),
     S = lists:seq(1, 16),
     [
-        %?_assertEqual(S, mergesort_worker:sort(L, 16, 2)),
+        ?_assertEqual(S, mergesort_worker:sort(L, 16, 2)),
         ?_assertEqual(S, mergesort_worker:sort(L, 16, 4))
     ].
 
-many_tests_() ->
+many_test_() ->
     LengthsParts = [
         {4, [2, 4]},
         {8, [2]},

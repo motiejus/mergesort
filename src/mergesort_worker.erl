@@ -8,18 +8,20 @@
 %%% Internal functions for self-calling
 -export([sort/4]).
 
-sort(List, Length, NumParts) ->
-    {part, Ret} = sort(self(), List, Length, NumParts),
-    Ret.
-
 %% @doc Sort List of Length using Parts parts
 -spec sort(list(A), pos_integer(), pos_integer()) -> list(A).
+sort(List, Length, NumParts) ->
+    {part, Ret} = sort(undefined, List, Length, NumParts),
+    Ret.
+
+-spec sort(undefined | pid(), list(A), pos_integer(), pos_integer()) ->
+    {part, list(A)}.
 sort(To, [Elem], 1, _) ->
-    To ! {part, [Elem]};
+    maybe_send(To, {part, [Elem]});
 sort(To, List, Length, NumParts) ->
     distribute(List, Length, NumParts),
     Parts = collect(NumParts),
-    To ! {part, lists:merge(Parts)}.
+    maybe_send(To, {part, lists:merge(Parts)}).
 
 distribute(Orig, Length, NumParts) ->
     Self = self(),
@@ -44,3 +46,9 @@ collect(Parts, Acc, Collected) ->
         {part, Part} ->
             collect(Parts, [Part|Acc], Collected + 1)
     end.
+
+-spec maybe_send(undefined | pid(), A) -> A.
+maybe_send(undefined, X) ->
+    X;
+maybe_send(Pid, X) when is_pid(Pid) ->
+    Pid ! X.

@@ -2,10 +2,6 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
-random_list(Len) ->
-    [X||{_,X} <- lists:sort([{random:uniform(), N} || N <- lists:seq(1, Len)])].
-
-
 smallest_test_() ->
     S = [1, 2],
     [
@@ -42,7 +38,7 @@ many_test_() ->
 
     lists:map(
         fun({Len, LNumParts}) ->
-                List = random_list(Len),
+                List = mergesort:random_list(Len),
                 Sorted = lists:sort(List),
                 lists:map(
                     fun(Parts) ->

@@ -1,7 +1,9 @@
 REBAR := $(shell which rebar || echo ./rebar)
 REBAR_URL := https://github.com/downloads/basho/rebar/rebar
 
-.PHONY: clean compile test
+.PHONY: clean compile test bench
+
+bench: compile
 
 compile: $(REBAR)
 	$(REBAR) get-deps compile xref

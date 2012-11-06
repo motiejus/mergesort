@@ -1,4 +1,4 @@
--module(mergesort_worker_test).
+-module(mergesort_test).
 
 -include_lib("eunit/include/eunit.hrl").
 
@@ -9,24 +9,24 @@ random_list(Len) ->
 smallest_test_() ->
     S = [1, 2],
     [
-        ?_assertEqual(S, mergesort_worker:sort([2, 1], 2, 2)),
-        ?_assertEqual(S, mergesort_worker:sort([2, 1], 2, 2))
+        ?_assertEqual(S, mergesort:sort([2, 1], 2, 2)),
+        ?_assertEqual(S, mergesort:sort([2, 1], 2, 2))
     ].
 
 smaller_test_() ->
     L = lists:seq(4, 1, -1),
     S = lists:seq(1, 4),
     [
-        ?_assertEqual(S, mergesort_worker:sort(L, 4, 2)),
-        ?_assertEqual(S, mergesort_worker:sort(L, 4, 4))
+        ?_assertEqual(S, mergesort:sort(L, 4, 2)),
+        ?_assertEqual(S, mergesort:sort(L, 4, 4))
     ].
 
 small_test_() ->
     L = lists:seq(16, 1, -1),
     S = lists:seq(1, 16),
     [
-        ?_assertEqual(S, mergesort_worker:sort(L, 16, 2)),
-        ?_assertEqual(S, mergesort_worker:sort(L, 16, 4))
+        ?_assertEqual(S, mergesort:sort(L, 16, 2)),
+        ?_assertEqual(S, mergesort:sort(L, 16, 4))
     ].
 
 many_test_() ->
@@ -49,7 +49,7 @@ many_test_() ->
                             {lists:flatten(io_lib:format("~p", [{Len, Parts}])),
                                 ?_assertEqual(
                                     Sorted,
-                                    mergesort_worker:sort(List, Len, Parts)
+                                    mergesort:sort(List, Len, Parts)
                                 )
                             }
                     end,

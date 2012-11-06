@@ -9,7 +9,7 @@
 %%% Length of the list must be a power of Parts.
 %%% In other words, this must be satisfied:
 %%% Parts ^ n = Length, n must be integer >= 1.
--module(mergesort_worker).
+-module(mergesort).
 
 -include_lib("eunit/include/eunit.hrl").
 
